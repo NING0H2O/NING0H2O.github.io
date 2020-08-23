@@ -6,7 +6,7 @@
   <link href="https://ning0h2o.github.io/atom.xml" rel="self"/>
   
   <link href="https://ning0h2o.github.io/"/>
-  <updated>2020-08-22T09:45:56.754Z</updated>
+  <updated>2020-08-23T15:56:26.574Z</updated>
   <id>https://ning0h2o.github.io/</id>
   
   <author>
@@ -17,43 +17,24 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>article title</title>
-    <link href="https://ning0h2o.github.io/article-title/"/>
-    <id>https://ning0h2o.github.io/article-title/</id>
-    <published>2020-08-22T09:38:43.000Z</published>
-    <updated>2020-08-22T09:45:56.754Z</updated>
+    <title>Ning0h2o的第一篇Blog</title>
+    <link href="https://ning0h2o.github.io/ning0h2o-de-di-yi-pian-blog/"/>
+    <id>https://ning0h2o.github.io/ning0h2o-de-di-yi-pian-blog/</id>
+    <published>2020-08-23T14:17:38.000Z</published>
+    <updated>2020-08-23T15:56:26.574Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Test&quot;&gt;&lt;a href=&quot;#Test&quot; class=&quot;headerlink&quot; title=&quot;Test&quot;&gt;&lt;/a&gt;Test&lt;/h1&gt;&lt;h2 id=&quot;Hello-World！&quot;&gt;&lt;a href=&quot;#Hello-World！&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;Ning0h2o的第一篇Blog&quot;&gt;&lt;a href=&quot;#Ning0h2o的第一篇Blog&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://ning0h2o.github.io/hello-world/"/>
-    <id>https://ning0h2o.github.io/hello-world/</id>
-    <published>2020-08-22T09:26:26.886Z</published>
-    <updated>2020-08-22T09:26:26.886Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
+    <category term="随笔" scheme="https://ning0h2o.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
   </entry>

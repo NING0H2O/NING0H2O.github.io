@@ -4,25 +4,18 @@
   
     
     <entry>
-      <title>article title</title>
-      <link href="/article-title/"/>
-      <url>/article-title/</url>
+      <title>Ning0h2o的第一篇Blog</title>
+      <link href="/ning0h2o-de-di-yi-pian-blog/"/>
+      <url>/ning0h2o-de-di-yi-pian-blog/</url>
       
-        <content type="html"><![CDATA[<h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><h2 id="Hello-World！"><a href="#Hello-World！" class="headerlink" title="Hello World！"></a>Hello World！</h2><p>something</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<h1 id="Ning0h2o的第一篇Blog"><a href="#Ning0h2o的第一篇Blog" class="headerlink" title="Ning0h2o的第一篇Blog"></a>Ning0h2o的第一篇Blog</h1><p>Hi，这里是Ning0h2o的blog，一枚刚进入职场的Java搬砖工程师~~</p><h2 id="一段简短的自我介绍"><a href="#一段简短的自我介绍" class="headerlink" title="一段简短的自我介绍"></a>一段简短的自我介绍</h2><p>ning0h2o（这个昵称可以转化成我的姓名哦，化学表达式+谐音这样子？），2020届大学毕业生，现在在狗东搬砖，唯一的兴趣就是打游戏打游戏打游戏了</p><h2 id="这个博客有什么内容？"><a href="#这个博客有什么内容？" class="headerlink" title="这个博客有什么内容？"></a>这个博客有什么内容？</h2><p>Java开发方面的技术记录文</p><h2 id="写博客的理由"><a href="#写博客的理由" class="headerlink" title="写博客的理由"></a>写博客的理由</h2><ol><li>我记了很多笔记，有道云笔记现在大概有300来篇笔记了吧，但是都是一些零零散散的知识点，分类也乱七八糟的。而且在我记完笔记之后很少去看，到现在有些已经遗忘的差不多了。通过写博客的方式review和重新编排一下，同时也是把这些知识点构建成知识体系的有效途径</li><li>到现在已经入职一个多月了，对自己所在岗位也有一定的了解，我会在接下来一段相对长的时间从事搬砖的活（谁叫自己菜呢）。不过还好，开发用的那套技术栈和我掌握的重合性很高，很多知识点也是在我的笔记里有所记录。因此，写博客复习也有助于搬砖（误）</li><li>俗话说的好，“靠山山倒”。在开发这条路上总不能就靠我那百来多篇笔记了吧？那样子的话一辈子都是搬砖工了（笑）。我会去学习一些新技术，并且通过写博客的方式记录知识点和我的一些理解</li></ol><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>能看到这儿的话，说明你是真的闲（笑）。从我上面写的内容你也大概看的出我文笔菜的一批，说来也惭愧，我高考语文差点不及格（苦笑）。在以后的博客写作中我会尽量保证语句通顺，在技术点说明这方面也会尽量保持正确性，个人理（忽）解（悠）处也会给出相应的标记（哈哈，不要被我忽悠了）</p><p>最后，十分感谢你能来到我的博客。如果你有什么建议或者想法对我说，可以在下方评论区留言，也可以加我企鹅号~</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/hello-world/"/>
-      <url>/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
       
       
     </entry>
