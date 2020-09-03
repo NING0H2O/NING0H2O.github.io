@@ -490,43 +490,89 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="责任链模式在字段验证场景中的使用"><a href="#责任链模式在字段验证场景中的使用" class="headerlink" title="责任链模式在字段验证场景中的使用"></a>责任链模式在字段验证场景中的使用</h1><p>最近在搬砖过程中有一个保存大表单的需求（搬砖CRUD常态），在保存这个大表单之前有一系列的字段检验，包括字段非空检验、表单名不能和已有的重名、表单数量、同时还有一些字段是互斥不能同时选择的等等一些情况。</p>
-<p>当时做这个需求的时候：唉，这个简单啊，if else一把梭不就完事了。于是想都没想就开始动手开始写了，诸如下面这样子：</p>
+                <h1 id="责任链模式在字段验证场景中的使用"><a href="#责任链模式在字段验证场景中的使用" class="headerlink" title="责任链模式在字段验证场景中的使用"></a>责任链模式在字段验证场景中的使用</h1><p>最近在搬砖过程中有一个保存大表单的需求（搬砖CRUD常态），在保存这个大表单之前有一系列的检验（字段校验使用了JSR303），表单名不能和已有的重名、表单数量、同时还有一些字段是互斥不能同时选择的等等一些情况。</p>
+<p>当时做这个的时候直接if else一把梭了，不过写到后面发现满屏的if else怎么看怎么别扭。</p>
 <pre class=" language-Java"><code class="language-Java">public boolean validate(Query query) &#123;
-    if (字段格式验证和非空验证) &#123;
-
-    &#125; else if (表单名验证)&#123;
+    if (表单名验证)&#123;
 
     &#125; else if (表单数量验证) &#123;
 
-    &#125; 
+    &#125; else if (时间校验) &#123;
+
+    &#125;
     ...
 &#125;</code></pre>
-<p>当我写到第4个if else时，就感觉特别别扭了，怎么这么多的if else了？！！虽然可以从验证方法中抽取一些子验证方法出来，但是会使Controller类代码量膨胀（增加了差不多一倍！），校验字段就占了一大半代码量的Controller类还叫Controller吗？而且如果以后要增加验证条件或者更改验证方法那岂不是也特别麻烦？</p>
-<h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h2><p>当时第一时间想到的方法是创建一个检验字段的工具类，使用这个工具类去专门处理字段的校验工作，但是这样也是换汤不换药，只是把检验代码从Controller转移出去到检验类而已，实际效果感觉也不是很好。<del>为了体现出咱的逼格肯定不能使用这么low的方法吧</del>（大误）。最后我想到了拦截器（指SpringMVC Interceptor），拦截器的使用和字段检验在某种程度上来说十分类似。</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">处理的对象</th>
-<th align="center">处理成功</th>
-<th align="center">处理失败</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">拦截器</td>
-<td align="center">Request</td>
-<td align="center">下一个拦截器处理（链式调用）</td>
-<td align="center">返回拦截未通过的信息</td>
-</tr>
-<tr>
-<td align="center">字段检验</td>
-<td align="center">RequestVO</td>
-<td align="center">进行下一个字段（场景）检验</td>
-<td align="center">返回字段检验未通过的信息</td>
-</tr>
-</tbody></table>
-<p>拦截器（Interceptor）主要是对请求（Request）进行拦截并进行相应处理，如登录鉴权、日志记录和性能监控之类的处理，这些场景的处理工作是由一个与之对应的拦截器实现的。例如登录拦截器（LoginInterceptor）对用户登录鉴权进行处理。</p>
+<h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h2><blockquote>
+<p>顾名思义，责任链模式（Chain of Responsibility Pattern）<strong>为请求创建了一个接收者对象的链</strong>。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。在这种模式中，<strong>通常每个接收者都包含对另一个接收者的引用</strong>。如果一个对象不能处理该请求，那么它会<strong>把相同的请求传给下一个接收者</strong>，依此类推。 </p>
+<p>​                                                                                                                                        来源：<a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/chain-of-responsibility-pattern.html">https://www.runoob.com/design-pattern/chain-of-responsibility-pattern.html</a></p>
+</blockquote>
+<p>简而言之，责任链模式就是一个对象经过一系列链接成链条的处理对象从而进行一系列处理。</p>
+<p>从上面的定义可以看出责任链模式非常适合用来对同一个对象进行一系列处理的场合，如SpringMVC的拦截器使用场景，对Request进行拦截处理。对表单对象进行检验的场景也非常适合使用责任链模式。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>在校验场景中，待处理对象就是表单对象，一系列的进行处理的对象则是一系列的校验器。因此首先需要一个校验器的接口，如下：</p>
+<pre class=" language-Java"><code class="language-Java">public interface Validator &#123;
+    ValidateResult validate(ReportQuery reportQuery);
+&#125;</code></pre>
+<p>对表单进行校验的校验器通过实现Validator接口即可：</p>
+<pre class=" language-Java"><code class="language-Java">// 表单名验证
+public class ReportNameValidator implements Validator &#123;
+
+    @Override
+    public ValidateResult validate(ReportQuery reportQuery) &#123;
+        // 表单名校验逻辑
+    &#125;
+&#125;
+
+// 表单数量验证
+public class ReportSizeValidator implements Validator &#123;
+
+    @Override
+    public ValidateResult validate(ReportQuery reportQuery) &#123;
+        // 表单数量校验逻辑
+    &#125;
+&#125;
+</code></pre>
+<p>链条上的进行处理的对象已经有了，现在需要一个可以把这些处理对象链接起来的并且可以按照链条顺序一一执行校验的对象：</p>
+<pre class=" language-Java"><code class="language-Java">public class ReportValidator &#123;
+    // 检验器集合
+    private List<Validator> validators = new ArrayList<>();
+
+    // 添加校验器并链接成链条
+    public ReportValidator addValidator(Validator validator) &#123;
+        validators.add(validator);
+        return this;
+    &#125;
+
+    // 按照链条顺序执行校验
+    public ValidateResult validate(ReportQuery reportQuery) &#123;
+        ValidateResult validateResult = null;
+        for (Validator validator : validators) &#123;
+            validateResult = validator.validate(reportQuery);
+            if (!validateResult.isSuccess()) &#123;
+                return validateResult;
+            &#125;
+        &#125;
+        return validateResult;
+    &#125;
+
+&#125;
+</code></pre>
+<p>然后，使用起来是这样子的：</p>
+<pre class=" language-Java"><code class="language-Java">    @PostMapping("/urlpath")
+    public JsonCommonResponse fun(@RequestBody ReportQuery reportQuery) &#123;
+        // 校验
+        ReportValidator reportValidator = new ReportValidator().addValidator(new ReportNameValidator())
+                .addValidator(new ReportSizeValidator());
+        ValidateResult validateResult = reportValidator.validate(reportQuery);
+        if (!validateResult.isSuccess()) &#123;
+            return JsonCommonResponse.failRes(validateResult.getResultCode());
+        &#125;
+        // 业务逻辑
+    &#125;
+</code></pre>
+<p>这样子使用起来十分方便，而且可读性也很好，扩展也十分方便，如果有新的校验逻辑，新建一个检验器类，添加到链条中即可。</p>
+<p><strong>注：</strong>一些校验器的检验逻辑可能会依赖它前面的校验结果，可能会导致NPE（检验器的添加顺序也请务必仔细考虑）</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>责任链模式非常适合用于<strong>对一个对象进行一系列的处理</strong>，如过滤（过滤器），拦截（拦截器），检验（检验器）。</p>
+<p>表单校验使用责任链模式和JSR303配合校验十分方便，而且可读性可维护性扩展性都挺不错。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -958,8 +1004,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            责任链模式在字段验证场景中的使用最近在搬砖过程中有一个保存大表单的需求（搬砖CRUD常态），在保存这个大表单之前有一系列的字段检验，包括字段非空检验、表单名不能和已有的重名、表单数量、同时还有一些字段是互斥不能同时选择的等等一些情况。
-当时
+                            责任链模式在字段验证场景中的使用最近在搬砖过程中有一个保存大表单的需求（搬砖CRUD常态），在保存这个大表单之前有一系列的检验（字段校验使用了JSR303），表单名不能和已有的重名、表单数量、同时还有一些字段是互斥不能同时选择的等等一些情况
                         
                     </div>
                     <div class="publish-info">
