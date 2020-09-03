@@ -4,11 +4,36 @@
   
     
     <entry>
+      <title>责任链模式在字段验证场景中的使用</title>
+      <link href="/ze-ren-lian-mo-shi-zai-zi-duan-yan-zheng-chang-jing-zhong-de-shi-yong/"/>
+      <url>/ze-ren-lian-mo-shi-zai-zi-duan-yan-zheng-chang-jing-zhong-de-shi-yong/</url>
+      
+        <content type="html"><![CDATA[<h1 id="责任链模式在字段验证场景中的使用"><a href="#责任链模式在字段验证场景中的使用" class="headerlink" title="责任链模式在字段验证场景中的使用"></a>责任链模式在字段验证场景中的使用</h1><p>最近在搬砖过程中有一个保存大表单的需求（搬砖CRUD常态），在保存这个大表单之前有一系列的字段检验，包括字段非空检验、表单名不能和已有的重名、表单数量、同时还有一些字段是互斥不能同时选择的等等一些情况。</p><p>当时做这个需求的时候：唉，这个简单啊，if else一把梭不就完事了。于是想都没想就开始动手开始写了，诸如下面这样子：</p><pre class=" language-Java"><code class="language-Java">public boolean validate(Query query) &#123;    if (字段格式验证和非空验证) &#123;    &#125; else if (表单名验证)&#123;    &#125; else if (表单数量验证) &#123;    &#125;     ...&#125;</code></pre><p>当我写到第4个if else时，就感觉特别别扭了，怎么这么多的if else了？！！虽然可以从验证方法中抽取一些子验证方法出来，但是会使Controller类代码量膨胀（增加了差不多一倍！），校验字段就占了一大半代码量的Controller类还叫Controller吗？而且如果以后要增加验证条件或者更改验证方法那岂不是也特别麻烦？</p><h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h2><p>当时第一时间想到的方法是创建一个检验字段的工具类，使用这个工具类去专门处理字段的校验工作，但是这样也是换汤不换药，只是把检验代码从Controller转移出去到检验类而已，实际效果感觉也不是很好。<del>为了体现出咱的逼格肯定不能使用这么low的方法吧</del>（大误）。最后我想到了拦截器（指SpringMVC Interceptor），拦截器的使用和字段检验在某种程度上来说十分类似。</p><table><thead><tr><th align="center"></th><th align="center">处理的对象</th><th align="center">处理成功</th><th align="center">处理失败</th></tr></thead><tbody><tr><td align="center">拦截器</td><td align="center">Request</td><td align="center">下一个拦截器处理（链式调用）</td><td align="center">返回拦截未通过的信息</td></tr><tr><td align="center">字段检验</td><td align="center">RequestVO</td><td align="center">进行下一个字段（场景）检验</td><td align="center">返回字段检验未通过的信息</td></tr></tbody></table><p>拦截器（Interceptor）主要是对请求（Request）进行拦截并进行相应处理，如登录鉴权、日志记录和性能监控之类的处理，这些场景的处理工作是由一个与之对应的拦截器实现的。例如登录拦截器（LoginInterceptor）对用户登录鉴权进行处理。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ning0h2o的第一篇Blog</title>
       <link href="/ning0h2o-de-di-yi-pian-blog/"/>
       <url>/ning0h2o-de-di-yi-pian-blog/</url>
       
-        <content type="html"><![CDATA[<h1 id="Ning0h2o的第一篇Blog"><a href="#Ning0h2o的第一篇Blog" class="headerlink" title="Ning0h2o的第一篇Blog"></a>Ning0h2o的第一篇Blog</h1><p>Hi，这里是Ning0h2o的blog，一枚刚进入职场的Java搬砖工程师~~</p><h2 id="一段简短的自我介绍"><a href="#一段简短的自我介绍" class="headerlink" title="一段简短的自我介绍"></a>一段简短的自我介绍</h2><p>ning0h2o（这个昵称可以转化成我的姓名哦，化学表达式+谐音这样子？），2020届大学毕业生，现在在狗东搬砖，唯一的兴趣就是打游戏打游戏打游戏了</p><h2 id="这个博客有什么内容？"><a href="#这个博客有什么内容？" class="headerlink" title="这个博客有什么内容？"></a>这个博客有什么内容？</h2><p>Java开发方面的技术记录文</p><h2 id="写博客的理由"><a href="#写博客的理由" class="headerlink" title="写博客的理由"></a>写博客的理由</h2><ol><li>我记了很多笔记，有道云笔记现在大概有300来篇笔记了吧，但是都是一些零零散散的知识点，分类也乱七八糟的。而且在我记完笔记之后很少去看，到现在有些已经遗忘的差不多了。通过写博客的方式review和重新编排一下，同时也是把这些知识点构建成知识体系的有效途径</li><li>到现在已经入职一个多月了，对自己所在岗位也有一定的了解，我会在接下来一段相对长的时间从事搬砖的活（谁叫自己菜呢）。不过还好，开发用的那套技术栈和我掌握的重合性很高，很多知识点也是在我的笔记里有所记录。因此，写博客复习也有助于搬砖（误）</li><li>俗话说的好，“靠山山倒”。在开发这条路上总不能就靠我那百来多篇笔记了吧？那样子的话一辈子都是搬砖工了（笑）。我会去学习一些新技术，并且通过写博客的方式记录知识点和我的一些理解</li></ol><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>能看到这儿的话，说明你是真的闲（笑）。从我上面写的内容你也大概看的出我文笔菜的一批，说来也惭愧，我高考语文差点不及格（苦笑）。在以后的博客写作中我会尽量保证语句通顺，在技术点说明这方面也会尽量保持正确性，个人理（忽）解（悠）处也会给出相应的标记（哈哈，不要被我忽悠了）</p><p>最后，十分感谢你能来到我的博客。如果你有什么建议或者想法对我说，可以在下方评论区留言，也可以加我企鹅号~</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<h1 id="Ning0h2o的第一篇Blog"><a href="#Ning0h2o的第一篇Blog" class="headerlink" title="Ning0h2o的第一篇Blog"></a>Ning0h2o的第一篇Blog</h1><p>Hi，这里是Ning0h2o的blog，一枚刚进入职场的Java搬砖工程师~~</p><h2 id="一段简短的自我介绍"><a href="#一段简短的自我介绍" class="headerlink" title="一段简短的自我介绍"></a>一段简短的自我介绍</h2><p>ning0h2o（这个昵称可以转化成我的姓名哦，化学表达式+谐音这样子？），2020届大学毕业生，现在在狗东搬砖，唯一的兴趣就是打游戏打游戏打游戏了</p><h2 id="这个博客有什么内容？"><a href="#这个博客有什么内容？" class="headerlink" title="这个博客有什么内容？"></a>这个博客有什么内容？</h2><p>Java开发方面的技术记录文，类似个人学习笔记和开发笔记，大多会是一些知识点的罗列和简单说明，不会太深层次的去研讨技术（大佬请绕道）。</p><h2 id="写博客的理由"><a href="#写博客的理由" class="headerlink" title="写博客的理由"></a>写博客的理由</h2><ol><li>我记了很多笔记，有道云笔记现在大概有300来篇笔记了吧，但是都是一些零零散散的知识点，分类也乱七八糟的。而且在我记完笔记之后很少去看，到现在有些已经遗忘的差不多了。通过写博客的方式review和重新编排一下，同时也是把这些知识点构建成知识体系的有效途径</li><li>到现在已经入职一个多月了，对自己所在岗位也有一定的了解，我会在接下来一段相对长的时间从事搬砖的活（谁叫自己菜呢）。不过还好，开发用的那套技术栈和我掌握的重合性很高，很多知识点也是在我的笔记里有所记录。因此，写博客复习也有助于搬砖（误）</li><li>俗话说的好，“靠山山倒”。在开发这条路上总不能就靠我那百来多篇笔记了吧？那样子的话一辈子都是搬砖工了（笑）。我会去学习一些新技术，并且通过写博客的方式记录知识点和我的一些理解</li></ol><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>能看到这儿的话，说明你是真的闲（笑）。从我上面写的内容你也大概看的出我文笔菜的一批，说来也惭愧，我高考语文差点不及格（苦笑）。在以后的博客写作中我会尽量保证语句通顺，在技术点说明这方面也会尽量保持正确性，个人理（忽）解（悠）处也会给出相应的标记（哈哈，不要被我忽悠了）</p><p>最后，十分感谢你能来到我的博客。如果你有什么建议或者想法对我说，可以在下方评论区留言，也可以加我企鹅号~</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
       <categories>

@@ -6,7 +6,7 @@
   <link href="https://ning0h2o.github.io/atom.xml" rel="self"/>
   
   <link href="https://ning0h2o.github.io/"/>
-  <updated>2020-08-23T15:59:05.209Z</updated>
+  <updated>2020-09-03T16:13:18.286Z</updated>
   <id>https://ning0h2o.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>责任链模式在字段验证场景中的使用</title>
+    <link href="https://ning0h2o.github.io/ze-ren-lian-mo-shi-zai-zi-duan-yan-zheng-chang-jing-zhong-de-shi-yong/"/>
+    <id>https://ning0h2o.github.io/ze-ren-lian-mo-shi-zai-zi-duan-yan-zheng-chang-jing-zhong-de-shi-yong/</id>
+    <published>2020-08-23T16:06:28.000Z</published>
+    <updated>2020-09-03T16:13:18.286Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;责任链模式在字段验证场景中的使用&quot;&gt;&lt;a href=&quot;#责任链模式在字段验证场景中的使用&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java开发" scheme="https://ning0h2o.github.io/categories/Java%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="设计模式" scheme="https://ning0h2o.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Ning0h2o的第一篇Blog</title>
     <link href="https://ning0h2o.github.io/ning0h2o-de-di-yi-pian-blog/"/>
     <id>https://ning0h2o.github.io/ning0h2o-de-di-yi-pian-blog/</id>
     <published>2020-08-23T14:17:38.000Z</published>
-    <updated>2020-08-23T15:59:05.209Z</updated>
+    <updated>2020-08-24T16:06:59.459Z</updated>
     
     
       
