@@ -507,11 +507,11 @@
 <p>当然统一日志局面也是要有“相应能力”的，显然JCL在这方面做得不够好，开发人员发现了JCL还不够好，有些人甚至认为JCL造成的问题比解决的问题还多。</p>
 <h3 id="英雄登场——Slf4j-amp-Logback"><a href="#英雄登场——Slf4j-amp-Logback" class="headerlink" title="英雄登场——Slf4j&amp;Logback"></a>英雄登场——Slf4j&amp;Logback</h3><p>这里说的是“英雄”是指<strong>Ceki Gülcü</strong>（同时也是Log4j的作者），他觉得JCL不够好，所以开发出了一套更为优秀的日志框架<strong>Slf4j（Simple Logging Facade for Java）</strong>，同时也提供一个比Log4j更为优秀的默认实现<strong>Logback</strong>。为了适配现有一些日志工具（Log4j，JUL），<strong>Ceki Gülcü</strong>也为一系列日志工具提供了桥接包，如slf4j-log4j12（Slf4j-Log4j桥接包）。当然只有日志工具的桥接包是不够的，如果当前应用使用了JCL日志框架，现在要使用Slf4j作为统一日志框架输出日志怎么办？桥接，当前桥接包不够那就再加一个，于是就有了slf4j-over-jcl（slf4j替换JCL）。</p>
 <p>于是，现有的日志工具和日志框架的使用逻辑如下：</p>
-<p><img src="/../assets/Java%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0_1.png"></p>
+<p><img src="/Java%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0_1.png" alt="Java日志概述_1"></p>
 <p>图片来源：<a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVbAMVm">https://segmentfault.com/img/bVbAMVm</a></p>
 <p><strong>注：</strong>使用桥接包时一定要注意避免环形依赖问题（会造成StackOverflow）。日志框架和日志工具或日志框架之间的两个桥接包一定不能同时存在。slf4j-xxx包作用是接口使用slf4j这一套，底层日志实现使用具体的xxx； xxx-over-slf4j包作用是对于xxx调用会转调slf4j接口。</p>
 <h3 id="王者归来——Log4j-2（Log4j-api-amp-Log4j-core）"><a href="#王者归来——Log4j-2（Log4j-api-amp-Log4j-core）" class="headerlink" title="王者归来——Log4j 2（Log4j-api&amp;Log4j-core）"></a>王者归来——Log4j 2（Log4j-api&amp;Log4j-core）</h3><p>你以为这样子就结束了？为了维护在 Java 日志江湖的地位，Apache重写了Log4j 1.x，成立了新的项目Log4j 2, 且Log4j 2具有Logback的所有特性。<strong>Log4j-api</strong>作为全新的日志框架，<strong>Log4j-core</strong>则作为它的默认实现，除了具有Logback所有特性之外，还新增了很多其他新特性，具体在<a target="_blank" rel="noopener" href="http://logging.apache.org/log4j/2.x/index.html">Log4j 2官网</a>。当然，随着全新的日志框架和日志工具的出现，这次同样也带来了一大堆桥接包。具体如下：</p>
-<p><img src="/../Java%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0.assets/Java%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0_2.png"></p>
+<p><img src="/Java%E6%97%A5%E5%BF%97%E6%A6%82%E8%BF%B0_2.png"></p>
 <p>图片来源：<a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVbAMVm">https://segmentfault.com/img/bVbAMVm</a></p>
 <p>以上就是Java日志体系各阶段的发展历史了，到今天已然变成了“三分天下”的混乱局面。只怪当初的Sun公司不够争气，要是当初能像JDBC一样提出一套Java日志规范（接口）就没后面这么多事了。所以，<strong>面向接口编程是非常重要的</strong>！！！</p>
 <h2 id="日志框架和工具的选择"><a href="#日志框架和工具的选择" class="headerlink" title="日志框架和工具的选择"></a>日志框架和工具的选择</h2><p>根据我写这篇文章在网上搜索文章的经历，目前<strong>Slf4j+Logback</strong>组合是当前最热门，刚好我工作中使用的也是这套。</p>
