@@ -6,7 +6,7 @@
   <link href="https://ning0h2o.github.io/atom.xml" rel="self"/>
   
   <link href="https://ning0h2o.github.io/"/>
-  <updated>2020-09-19T11:02:32.408Z</updated>
+  <updated>2020-09-26T09:40:32.099Z</updated>
   <id>https://ning0h2o.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Logback最佳实践</title>
+    <link href="https://ning0h2o.github.io/logback-zui-jia-shi-jian/"/>
+    <id>https://ning0h2o.github.io/logback-zui-jia-shi-jian/</id>
+    <published>2020-09-20T11:48:02.000Z</published>
+    <updated>2020-09-26T09:40:32.099Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Logback最佳实践&quot;&gt;&lt;a href=&quot;#Logback最佳实践&quot; class=&quot;headerlink&quot; title=&quot;Logback最佳实践&quot;&gt;&lt;/a&gt;Logback最佳实践&lt;/h1&gt;&lt;h2 id=&quot;Logback架构&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java开发" scheme="https://ning0h2o.github.io/categories/Java%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="日志" scheme="https://ning0h2o.github.io/tags/%E6%97%A5%E5%BF%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Java日志体系概述</title>
